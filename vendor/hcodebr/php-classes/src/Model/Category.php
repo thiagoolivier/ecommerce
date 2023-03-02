@@ -72,5 +72,18 @@ class Category extends Model
 
     }
 
+    public function getProducts($related = true)
+    {
+
+        $sql = new Sql();
+
+        if ($related === true) {
+
+            $sql->select("")
+
+        }
+
+    }
+
 
 }
