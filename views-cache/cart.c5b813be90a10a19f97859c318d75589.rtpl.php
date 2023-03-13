@@ -100,17 +100,41 @@
                                         <tbody>
                                             <tr class="cart-subtotal">
                                                 <th>Subtotal</th>
+
+                                                <?php if( $products > 0 ){ ?>
+
+
                                                 <td><span class="amount">R$<?php echo formatPrice($cart["vlsubtotal"]); ?></span></td>
+                                                <?php }else{ ?>
+
+                                                    <td><span class="amount"> </span></td>
+                                                <?php } ?>
+
+
                                             </tr>
 
                                             <tr class="shipping">
                                                 <th>Frete</th>
-                                                <td>R$<?php echo formatPrice($cart["vlfreight"]); ?><?php if( $cart["nrdays"] > 0 ){ ?> <small>prazo de <?php echo htmlspecialchars( $cart["nrdays"], ENT_COMPAT, 'UTF-8', FALSE ); ?> dia(s)</small><?php } ?></td>
+                                                <?php if( $products > 0 ){ ?>
+
+                                                    <td>R$<?php echo formatPrice($cart["vlfreight"]); ?><?php if( $cart["nrdays"] > 0 ){ ?> <small>prazo de <?php echo htmlspecialchars( $cart["nrdays"], ENT_COMPAT, 'UTF-8', FALSE ); ?> dia(s)</small><?php } ?></td>
+                                                <?php }else{ ?>
+
+                                                    <td><span class="amount"> </span></td>
+                                                <?php } ?>
+
                                             </tr>
 
                                             <tr class="order-total">
                                                 <th>Total</th>
-                                                <td><strong><span class="amount">R$<?php echo formatPrice($cart["vltotal"]); ?></span></strong> </td>
+                                                <?php if( $products > 0 ){ ?>
+
+                                                    <td><strong><span class="amount">R$<?php echo formatPrice($cart["vltotal"]); ?></span></strong> </td>
+                                                <?php }else{ ?>
+
+                                                    <td><span class="amount"> </span></td>
+                                                <?php } ?>
+
                                             </tr>
                                         </tbody>
                                     </table>
