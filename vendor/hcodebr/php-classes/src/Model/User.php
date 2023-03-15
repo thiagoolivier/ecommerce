@@ -60,33 +60,36 @@ class User extends Model
 
         $sql = new Sql();
 
-        $results = $sql->select("SELECT * FROM tb_users a INNER JOIN tb_persons b ON a.idperson = b.idperson WHERE a.deslogin = :LOGIN", array(
-            ":LOGIN" => $login
-        ));
+		$results = $sql->select("SELECT * FROM tb_users a INNER JOIN tb_persons b ON a.idperson = b.idperson WHERE a.deslogin = :LOGIN", array(
+			":LOGIN"=>$login
+		)); 
 
-        if (count($results) === 0) {
-            throw new \Exception("Usuário inexistente ou senha inválida.");
-        }
+		if (count($results) === 0)
+		{
+            
+			throw new \Exception("Usuário inexistente ou senha inválida.");
+		}
 
-        $data = $results[0];
+		$data = $results[0];
 
+    
+		if (password_verify($password, $data["despassword"]) === true)
+		{
 
+			$user = new User();
 
-        if (password_verify($password, $data["despassword"]) === true) {
+			$data['desperson'] = utf8_encode($data['desperson']);
 
-            $user = new User();
+			$user->setData($data);
 
-            $data['desperson'] = utf8_encode($data['desperson']);
+			$_SESSION[User::SESSION] = $user->getValues();
 
-            $user->setData($data);
+			return $user;
 
-            $_SESSION[User::SESSION] = $user->getValues();
+		} else {
 
-            return $user;
-
-        } else {
-            throw new \Exception("Usuário inexistente ou senha inválida.");
-        }
+			throw new \Exception("Usuário inexistente ou senha inválida.");
+		}
 
     }
 
@@ -299,12 +302,6 @@ class User extends Model
         ));
     }
 
-    public static function setError($msg)
-    {
-
-        $_SESSION[User::ERROR] = $msg;
-    }
-
     public static function setErrorRegister($msg)
     {
 
@@ -330,6 +327,13 @@ class User extends Model
 
     }
 
+    public static function setError($msg)
+    {
+
+        $_SESSION[User::ERROR] = $msg;
+
+    }
+
     public static function getError()
     {
 
@@ -344,6 +348,31 @@ class User extends Model
     {
 
         $_SESSION[User::ERROR] = NULL;
+
+    }
+
+    public static function setSuccess($msg)
+    {
+
+        $_SESSION[User::SUCCESS] = $msg;
+        
+    }
+
+    public static function getSuccess()
+    {
+
+        $msg = (isset($_SESSION[User::SUCCESS]) && $_SESSION[User::SUCCESS]) ? $_SESSION[User::SUCCESS] : '';
+
+        User::clearSuccess();
+
+        return $msg;
+    }
+
+    public static function clearSuccess()
+    {
+
+        $_SESSION[User::SUCCESS] = NULL;
+
     }
 
     public static function checkLoginExists($login)
