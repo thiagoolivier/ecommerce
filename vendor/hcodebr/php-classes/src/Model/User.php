@@ -71,6 +71,7 @@ class User extends Model
         $data = $results[0];
 
 
+
         if (password_verify($password, $data["despassword"]) === true) {
 
             $user = new User();
@@ -86,6 +87,7 @@ class User extends Model
         } else {
             throw new \Exception("Usuário inexistente ou senha inválida.");
         }
+        
     }
 
     public static function verifyLogin($inadmin = true)
@@ -296,6 +298,31 @@ class User extends Model
         $_SESSION[User::ERROR] = $msg;
     }
 
+    public static function setErrorRegister($msg)
+    {
+
+        $_SESSION[User::ERROR_REGISTER] = $msg;
+
+    }
+
+    public static function getErrorRegister()
+    {
+
+        $msg = (isset($_SESSION[User::ERROR_REGISTER]) && $_SESSION[User::ERROR_REGISTER]) ? $_SESSION[User::ERROR_REGISTER] : '';
+
+        User::clearErrorRegister();
+
+        return $msg;
+
+    }
+
+    public static function clearErrorRegister()
+    {
+
+        $_SESSION[User::ERROR_REGISTER] = NULL;
+
+    }
+
     public static function getError()
     {
 
@@ -310,6 +337,19 @@ class User extends Model
     {
 
         $_SESSION[User::ERROR] = NULL;
+    }
+
+    public static function checkLoginExists($login)
+    {
+
+        $sql = new Sql();
+
+        $results = $sql->select("SELECT * FROM tb_users WHERE deslogin = :deslogin", [
+            ':deslogin' => $login
+        ]);
+
+        return (count($results) > 0);
+
     }
 
     public static function getPasswordHash($password)
