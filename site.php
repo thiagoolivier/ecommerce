@@ -253,8 +253,8 @@ $app->post("/register", function(){
 	$user->setData([
 		'inadmin' => 0,
 		'deslogin' => $_POST['email'],
-		'desperson' => $_POST['name'],
-		'desperson' => $_POST['email'],
+		'desemail' => $_POST['email'],
+		'desperson' => $_POST['name'],		
 		'despassword' => $_POST['password'],
 		'nrphone' => $_POST['phone']
 	]);
