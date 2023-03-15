@@ -87,7 +87,7 @@ class User extends Model
         } else {
             throw new \Exception("Usuário inexistente ou senha inválida.");
         }
-        
+
     }
 
     public static function verifyLogin($inadmin = true)
@@ -224,8 +224,13 @@ class User extends Model
             $results2 = $sql2->select("SELECT * FROM tb_userspasswordsrecoveries WHERE idrecovery = LAST_INSERT_ID()");
 
             if (count($results2) == 0) {
+                
                 throw new \Exception("Não foi possível recuperar a senha.");
-            } else {
+
+            } 
+            else 
+            {
+                
                 $dataRecovery = $results2[0];
 
                 $code = openssl_encrypt($dataRecovery['idrecovery'], 'AES-128-CBC', pack("a16", User::SECRET), 0, pack("a16", User::SECRET_IV));
@@ -248,7 +253,9 @@ class User extends Model
                 $mailer->send();
 
                 return $data;
+
             }
+
         }
     }
 
