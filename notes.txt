@@ -1,0 +1,7 @@
+------------------------------
+MySQL default encode option:
+
+charset - utf8mb4
+collation - ut8mb4_0900
+
+------------------------------
