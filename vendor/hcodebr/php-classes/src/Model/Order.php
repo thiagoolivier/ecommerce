@@ -11,33 +11,25 @@ class Order extends Model {
     const SUCCESS = "Order-success";
     const ERROR = "Order-error";
 
-    public function save() 
-    {
+    public function save()
+	{
 
-        $sql = new Sql();
+		$sql = new Sql();
 
-        $results = $sql->select("CALL sp_orders_save(
-                    :idorder, 
-                    :idcart, 
-                    :iduser, 
-                    :idstatus, 
-                    :idaddress, 
-                    :vltotal
-                    )", 
-                    [
-                        ':idorder' => $this->getidorder(),
-                        ':idcart' => $this->getidcart(),
-                        ':iduser' => $this->getiduser(),
-                        ':idstatus' => $this->getidstatus(),
-                        ':idaddress' => $this->getidaddress(),
-                        ':vltotal' => $this->getvltotal()
-                    ]);
-        
-        if (count($results) > 0) {
-            $this->setData($results[0]);
-        }
+		$results = $sql->select("CALL sp_orders_save(:idorder, :idcart, :iduser, :idstatus, :idaddress, :vltotal)", [
+			':idorder'=>$this->getidorder(),
+			':idcart'=>$this->getidcart(),
+			':iduser'=>$this->getiduser(),
+			':idstatus'=>$this->getidstatus(),
+			':idaddress'=>$this->getidaddress(),
+			':vltotal'=>$this->getvltotal()
+		]);
 
-    }
+		if (count($results) > 0) {
+			$this->setData($results[0]);
+		}
+
+	}
 
     public function get($idorder) 
     {
