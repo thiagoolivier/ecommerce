@@ -3,7 +3,7 @@
         'name' => 'thiagoolivier/ecommerce',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '3100d2436c72dc5128e54ba8ba166d7062b481c5',
+        'reference' => 'fdecab7effb622e7b404a64fb38bfcebc7c25709',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -40,7 +40,7 @@
         'thiagoolivier/ecommerce' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '3100d2436c72dc5128e54ba8ba166d7062b481c5',
+            'reference' => 'fdecab7effb622e7b404a64fb38bfcebc7c25709',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
