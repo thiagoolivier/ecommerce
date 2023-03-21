@@ -1,7 +1,9 @@
 ------------------------------
-MySQL default encode option:
+* MySQL Settings
+
+MySQL Server v5.7
+MySQL Workbench v8.0
 
 charset - utf8mb4
 collation - ut8mb4_0900
-
 ------------------------------
